@@ -32,10 +32,15 @@ user node['git-daemon']['user'] do
   system true
 end
 
-directory node['git-daemon']['home'] do
-  owner node['git-daemon']['user']
-  group node['git-daemon']['group']
-  recursive true
+[
+	node['git-daemon']['home'],
+	node['git-daemon']['home'] + "/repositories"
+].each do |dir|
+  directory dir do
+    owner node['git-daemon']['user']
+    group node['git-daemon']['group']
+    recursive true
+  end
 end
 
 
