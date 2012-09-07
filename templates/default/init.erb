@@ -33,7 +33,7 @@ SCRIPTNAME=/etc/init.d/$NAME
 RUN=yes
 USER=git
 GROUP=git
-REPOSITORIES="<%= node['git-daemon']['home'] %>/repositories"
+REPOSITORIES="<%= node['git-daemon']['path'] %>"
 
 # If ADVANCED_OPTS is empty, use a default setting
 if [ "x$ADVANCED_OPTS" = "x" ];

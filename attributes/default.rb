@@ -22,4 +22,5 @@
 
 default['git-daemon']['user'] = "git"
 default['git-daemon']['group'] = "git"
-default['git-daemon']['home'] = "/var/git"
+default['git-daemon']['home'] = "/home/git"
+default['git-daemon']['path'] = "/var/cache/git"

@@ -34,7 +34,7 @@ end
 
 [
 	node['git-daemon']['home'],
-	node['git-daemon']['home'] + "/repositories"
+	node['git-daemon']['path']
 ].each do |dir|
   directory dir do
     owner node['git-daemon']['user']

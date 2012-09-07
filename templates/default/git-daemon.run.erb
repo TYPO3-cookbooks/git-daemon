@@ -1,4 +1,4 @@
 #!/bin/sh
 exec 2>&1
 echo 'git-daemon starting.'
-exec git-daemon --verbose --reuseaddr --base-path=<%= node['git-daemon']['home'] %>/repositories <%= node['git-daemon']['home'] %>/repositories
+exec git-daemon --verbose --reuseaddr --base-path=<%= node['git-daemon']['path'] %> <%= node['git-daemon']['home'] %>
