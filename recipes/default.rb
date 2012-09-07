@@ -27,7 +27,7 @@ group node['git-daemon']['group']
 user node['git-daemon']['user'] do
   gid node['git-daemon']['group']
   home node['git-daemon']['home']
-  comment "Gerrit system user"
+  comment "Git-daemon system user"
   shell "/bin/bash"
   system true
 end
