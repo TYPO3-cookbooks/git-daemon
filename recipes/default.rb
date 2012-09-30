@@ -37,9 +37,10 @@ end
 	node['git-daemon']['path']
 ].each do |dir|
   directory dir do
-    owner node['git-daemon']['user']
+    user node['git-daemon']['user']
     group node['git-daemon']['group']
     recursive true
+    mode 0744
   end
 end
 
