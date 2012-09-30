@@ -53,15 +53,16 @@ package "git-daemon-run"
 
 template "/etc/sv/git-daemon/run" do
   source "git-daemon.run.erb"
-  notifies :restart, "service[git-daemon]"
+#  notifies :restart, "service[git-daemon]"
+  mode 0755
 end
 
-template "/etc/init.d/git-daemon" do
-  source "init.erb"
-  mode 0744
-end
+#template "/etc/init.d/git-daemon" do
+#  source "init.erb"
+#  mode 0744
+#end
 
-service "git-daemon" do
-  supports :status => true, :restart => true, :reload => false
-  action [ :enable, :start ]
-end
+#service "git-daemon" do
+#  supports :status => true, :restart => true, :reload => false
+#  action [ :enable, :start ]
+#end
