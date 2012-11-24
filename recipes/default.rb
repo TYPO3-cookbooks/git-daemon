@@ -40,7 +40,7 @@ end
     user node['git-daemon']['user']
     group node['git-daemon']['group']
     recursive true
-    mode 0744
+    mode 0755
   end
 end
 
