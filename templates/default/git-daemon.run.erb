@@ -3,4 +3,5 @@ exec 2>&1
 echo 'git-daemon starting.'
 exec chpst -ugitdaemon \
   "$(git --exec-path)"/git-daemon --verbose --reuseaddr \
+    --max-connections=<%= node['git-daemon']['max_connections'] %> \
     --base-path=<%= node['git-daemon']['path'] %> <%= node['git-daemon']['path'] %>
