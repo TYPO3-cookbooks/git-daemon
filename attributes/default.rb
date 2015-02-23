@@ -24,3 +24,4 @@ default['git-daemon']['user'] = "git"
 default['git-daemon']['group'] = "git"
 default['git-daemon']['home'] = "/home/git"
 default['git-daemon']['path'] = "/var/cache/git"
+default['git-daemon']['max_connections'] = '32';
