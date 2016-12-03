@@ -1,9 +1,14 @@
 ---
 driver:
   name: vagrant
+  network:
+  - ["private_network", {ip: "192.168.88.68"}]
 
 provisioner:
   name: chef_zero
+
+verifier:
+  name: inspec
 
 platforms:
   - name: debian-8.5
@@ -14,4 +19,6 @@ suites:
   - name: default
     run_list:
       - recipe[git-daemon::default]
+      - recipe[git-daemon_test::init_repo]
+      - recipe[git-daemon_test::export_node]
     attributes:
