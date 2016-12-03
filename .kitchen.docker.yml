@@ -7,7 +7,7 @@ driver:
 #  run_command: /usr/sbin/init
 #  privileged: true
   cap_add:
-    - SYS_ADMIN
+    - SYS_ADMIN # required!
   volume:
     - /sys/fs/cgroup
   provision_command:
