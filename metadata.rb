@@ -8,3 +8,4 @@ version          "1.2.0"
 
 depends "apt"
 depends "git"
+depends "systemd"

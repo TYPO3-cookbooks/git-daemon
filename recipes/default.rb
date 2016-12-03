@@ -49,20 +49,35 @@ end
 # Git daemon
 ####################################
 
-package "git-daemon-run"
+package "git-core"
 
-template "/etc/sv/git-daemon/run" do
-  source "git-daemon.run.erb"
-#  notifies :restart, "service[git-daemon]"
-  mode 0755
+systemd_socket 'git-daemon' do
+  description 'Git Activation Socket'
+  conflicts 'git-daemon.service'
+  install do
+    wanted_by 'sockets.target'
+  end
+  socket do
+    listen_stream 9418
+    accept true
+  end
+  action [:create, :enable, :start]
 end
 
-#template "/etc/init.d/git-daemon" do
-#  source "init.erb"
-#  mode 0744
-#end
-
-#service "git-daemon" do
-#  supports :status => true, :restart => true, :reload => false
-#  action [ :enable, :start ]
-#end
+# the trailing @ denotes that this is a template service.
+# this service is not directly started, but invoked by the socket
+systemd_service 'git-daemon@' do
+  description 'Git Repositories Server Daemon'
+  after 'network.target'
+  install do
+    wanted_by 'multi-user.target'
+  end
+  service do
+    user node['git-daemon']['user']
+    standard_input 'socket'
+    standard_output 'inherit'
+    standard_error 'journal'
+    # The '-' is to ignore non-zero exit statuses
+    exec_start "-/usr/lib/git-core/git-daemon --inetd --syslog --verbose --base-path=#{node['git-daemon']['path']}"
+  end
+end
