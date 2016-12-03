@@ -33,8 +33,8 @@ user node['git-daemon']['user'] do
 end
 
 [
-	node['git-daemon']['home'],
-	node['git-daemon']['path']
+  node['git-daemon']['home'],
+  node['git-daemon']['path']
 ].each do |dir|
   directory dir do
     user node['git-daemon']['user']
