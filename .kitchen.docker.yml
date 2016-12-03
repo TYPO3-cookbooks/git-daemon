@@ -5,7 +5,7 @@ driver:
 #  pid_one_command: /bin/systemd
   run_command: /bin/systemd
 #  run_command: /usr/sbin/init
-  privileged: true
+#  privileged: true
   cap_add:
     - SYS_ADMIN
   volume:
