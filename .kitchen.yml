@@ -6,11 +6,12 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: debian-7.4
+  - name: debian-8.5
+    run_list:
+      - recipe[apt::default]
 
 suites:
   - name: default
     run_list:
-      - recipe[apt::default]
       - recipe[git-daemon::default]
     attributes:
