@@ -51,6 +51,9 @@ end
 
 package "git-core"
 
+# systemd actions within test-kitchen / docker end up with
+# error "Failed to get D-Bus connection: Unknown error -1"
+
 systemd_socket 'git-daemon' do
   description 'Git Activation Socket'
   conflicts 'git-daemon.service'
@@ -61,13 +64,7 @@ systemd_socket 'git-daemon' do
     listen_stream 9418
     accept true
   end
-  action [:create, :enable]
-end
-
-# systemd actions within test-kitchen / docker end up with
-# error "Failed to get D-Bus connection: Unknown error -1"
-systemd_socket 'git-daemon' do
-  action [:start]
+  action [:create, :enable, :start]
   # WARNING: disabled during tests because of systemd in Docker
   not_if { node['virtualization']['system'] == 'docker' }
 end
