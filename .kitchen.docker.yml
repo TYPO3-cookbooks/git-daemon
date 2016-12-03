@@ -1,15 +1,11 @@
 driver:
   name: docker
   use_sudo: false
-#  pid_one_command: /sbin/init
-#  pid_one_command: /bin/systemd
-  run_command: /bin/systemd
-#  run_command: /usr/sbin/init
-#  privileged: true
+  run_command: /bin/systemd # required!
   cap_add:
-    - SYS_ADMIN # required!
+    - SYS_ADMIN
   volume:
-    - /sys/fs/cgroup
+    - /sys/fs/cgroup # required!
   provision_command:
-    - apt-get install systemd -y
+    - apt-get install -y systemd
     - apt-get install -y net-tools cron
