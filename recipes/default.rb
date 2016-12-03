@@ -61,7 +61,14 @@ systemd_socket 'git-daemon' do
     listen_stream 9418
     accept true
   end
-  action [:create, :enable, :start]
+  action [:create, :enable]
+end
+
+# systemd actions within test-kitchen / docker end up with
+# error "Failed to get D-Bus connection: Unknown error -1"
+systemd_socket 'git-daemon' do
+  action [:start]
+  ignore_failure if node['virtualization']['system'] == 'docker'
 end
 
 # the trailing @ denotes that this is a template service.
@@ -80,4 +87,6 @@ systemd_service 'git-daemon@' do
     # The '-' is to ignore non-zero exit statuses
     exec_start "-/usr/lib/git-core/git-daemon --inetd --syslog --verbose --base-path=#{node['git-daemon']['path']}"
   end
+  # systemd..
+  ignore_failure if node['virtualization']['system'] == 'docker'
 end
