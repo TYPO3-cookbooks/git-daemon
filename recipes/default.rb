@@ -65,8 +65,7 @@ systemd_socket 'git-daemon' do
     accept true
   end
   action [:create, :enable, :start]
-  # WARNING: disabled during tests because of systemd in Docker
-  not_if { node['virtualization']['system'] == 'docker' }
+
 end
 
 # the trailing @ denotes that this is a template service.
@@ -85,6 +84,5 @@ systemd_service 'git-daemon@' do
     # The '-' is to ignore non-zero exit statuses
     exec_start "-/usr/lib/git-core/git-daemon --inetd --syslog --verbose --base-path=#{node['git-daemon']['path']}"
   end
-  # WARNING: disabled during tests because of systemd in Docker
-  not_if { node['virtualization']['system'] == 'docker' }
+
 end
