@@ -3,9 +3,9 @@ driver:
   use_sudo: false
   run_command: /bin/systemd # required!
   cap_add:
-    - SYS_ADMIN
+    - SYS_ADMIN # required!
   volume:
     - /sys/fs/cgroup # required!
   provision_command:
-    - apt-get install -y systemd
+#    - apt-get install -y systemd
     - apt-get install -y net-tools cron
