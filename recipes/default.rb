@@ -68,7 +68,8 @@ end
 # error "Failed to get D-Bus connection: Unknown error -1"
 systemd_socket 'git-daemon' do
   action [:start]
-  ignore_failure if node['virtualization']['system'] == 'docker'
+  # WARNING: disabled during tests because of systemd in Docker
+  not_if { node['virtualization']['system'] == 'docker' }
 end
 
 # the trailing @ denotes that this is a template service.
@@ -87,6 +88,6 @@ systemd_service 'git-daemon@' do
     # The '-' is to ignore non-zero exit statuses
     exec_start "-/usr/lib/git-core/git-daemon --inetd --syslog --verbose --base-path=#{node['git-daemon']['path']}"
   end
-  # systemd..
-  ignore_failure if node['virtualization']['system'] == 'docker'
+  # WARNING: disabled during tests because of systemd in Docker
+  not_if { node['virtualization']['system'] == 'docker' }
 end

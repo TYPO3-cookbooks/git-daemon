@@ -10,6 +10,12 @@ control 'git-1' do
 
   [9418].each do |listen_port|
     describe port(listen_port) do
+      # systemd setup not working in docker
+      let(:node) { json('/tmp/kitchen/chef_node.json').params }
+      before do
+        skip if node['automatic']['virtualization']['system'] == 'docker'
+      end
+
       it { should be_listening }
       its('protocols') { should include 'tcp6'}
     end
